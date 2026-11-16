@@ -1,0 +1,59 @@
+# Dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Android and iOS generated files
+android/
+ios/
+
+# Build outputs
+*.apk
+*.aab
+*.ipa
+
+# Testing and coverage
+coverage/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Local database files
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+
+# Private keys and certificates
+*.keystore
+*.jks
+*.p8
+*.p12
+*.mobileprovision
+credentials.json
