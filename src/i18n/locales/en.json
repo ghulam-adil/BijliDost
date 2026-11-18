@@ -1,0 +1,70 @@
+{
+  "common": {
+    "appName": "Bijli Dost",
+    "tagline": "Your electricity bill, simplified!",
+    "continue": "Continue",
+    "back": "Back",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "verified": "Verified",
+    "needsReview": "Needs Review",
+    "unverified": "Unverified",
+    "help": "Help & Guidance",
+    "loading": "Loading..."
+  },
+  "onboarding": {
+    "welcome": "Welcome!",
+    "selectLanguage": "Please select your preferred language:",
+    "urdu": "اردو",
+    "romanUrdu": "Roman Urdu",
+    "english": "English",
+    "disclaimer": "Bijli Dost is an independent assistance app and is not affiliated with K-Electric or NEPRA. All bill data remains strictly on your device."
+  },
+  "dashboard": {
+    "greeting": "Welcome to Bijli Dost",
+    "scanCardTitle": "Scan New Bill",
+    "scanCardSubtitle": "Take a photo with camera or choose from gallery",
+    "scanCta": "Scan Bill",
+    "recentBillsTitle": "Recent Bills",
+    "noRecentBills": "No bills saved yet",
+    "noRecentBillsDesc": "Scan your first electricity bill to see clear breakdowns and due dates.",
+    "consumptionTitle": "Monthly Consumption Trend",
+    "noConsumptionData": "No consumption history",
+    "noConsumptionDesc": "Scan bills to track your monthly units (kWh) and compare seasonal trends.",
+    "quickHelpTitle": "Complaints & Guidance",
+    "quickHelpDesc": "Official K-Electric helpline numbers and step-by-step guidance for meter issues.",
+    "viewHelp": "View Guidance"
+  },
+  "tabs": {
+    "home": "Home",
+    "scan": "Scan",
+    "history": "History",
+    "complaints": "Help"
+  },
+  "scan": {
+    "title": "Scan Bill",
+    "cameraTip": "Ensure good lighting and align bill inside the frame",
+    "takePhoto": "Take Photo",
+    "chooseGallery": "Choose from Gallery",
+    "milestoneNotice": "Camera capture and on-device OCR pipeline is scheduled for Milestone 3."
+  },
+  "history": {
+    "title": "Saved Bills",
+    "emptyTitle": "No Bills Found",
+    "emptyDesc": "Your scanned electricity bills will be securely listed here.",
+    "securityNote": "All bill records are stored on your device with local SQLCipher encryption."
+  },
+  "complaints": {
+    "title": "Complaints & Official Contacts",
+    "keHelpline": "K-Electric Helpline: 118",
+    "smsService": "SMS Service: 8119",
+    "checklistTitle": "Have these ready before calling:",
+    "checklistItem1": "Your 13-digit Account Number",
+    "checklistItem2": "Photo of your current physical meter reading",
+    "checklistItem3": "Copy of the disputed bill",
+    "independentNotice": "Provided for consumer reference only. We do not submit complaints on your behalf."
+  }
+}
+

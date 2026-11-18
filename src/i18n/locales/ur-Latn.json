@@ -1,0 +1,70 @@
+{
+  "common": {
+    "appName": "Bijli Dost",
+    "tagline": "Aap ka bijli ka bill, ab aasan!",
+    "continue": "Aage Barhein",
+    "back": "Peechay",
+    "cancel": "Mansookh",
+    "save": "Mehfooz Karein",
+    "delete": "Delete Karein",
+    "edit": "Tabdeel Karein",
+    "verified": "Verified",
+    "needsReview": "Check Karein",
+    "unverified": "Unverified",
+    "help": "Madad aur Rehnumai",
+    "loading": "Load ho raha hai..."
+  },
+  "onboarding": {
+    "welcome": "Khush Aamdeed!",
+    "selectLanguage": "Barah-e-karam apni pasandeeda zaban muntakhib karein:",
+    "urdu": "اردو",
+    "romanUrdu": "Roman Urdu",
+    "english": "English",
+    "disclaimer": "Bijli Dost aik azad helper app hai aur K-Electric ya NEPRA se wabasta nahi hai. Tamam data aap ke phone par mehfooz rehta hai."
+  },
+  "dashboard": {
+    "greeting": "Assalam-o-Alaikum!",
+    "scanCardTitle": "Naya Bill Scan Karein",
+    "scanCardSubtitle": "Camera se tasweer lein ya gallery se chunein",
+    "scanCta": "Bill Scan Karein",
+    "recentBillsTitle": "Halia Bills",
+    "noRecentBills": "Abhi tak koi bill mehfooz nahi hua",
+    "noRecentBillsDesc": "Bijli ke bill ki tafseelat samajhne ke liye pehla bill scan karein.",
+    "consumptionTitle": "Mahana Units Ka Mawazna",
+    "noConsumptionData": "Koi data dastiyab nahi",
+    "noConsumptionDesc": "Mahana istemal ka graph dekhne ke liye bill scan karein.",
+    "quickHelpTitle": "Shikayat aur Rehnumai",
+    "quickHelpDesc": "Zyada bill ya meter reading issue ke liye KE ke sarkari helpline numbers dekhein.",
+    "viewHelp": "Rehnumai Dekhein"
+  },
+  "tabs": {
+    "home": "Home",
+    "scan": "Scan",
+    "history": "History",
+    "complaints": "Rehnumai"
+  },
+  "scan": {
+    "title": "Bill Scan Karein",
+    "cameraTip": "Roshni achi rakhein aur bill seedha pakrein",
+    "takePhoto": "Tasweer Lein",
+    "chooseGallery": "Gallery Se Chunein",
+    "milestoneNotice": "Camera scanning aur OCR Milestone 3 mein shamil hoga."
+  },
+  "history": {
+    "title": "Mehfooz Bills",
+    "emptyTitle": "Koi Bill Maujood Nahi",
+    "emptyDesc": "Aap ke scan kiye gaye bills yahan nazar aayenge.",
+    "securityNote": "Tamam bills aap ke phone par encrypted database mein mehfooz hain."
+  },
+  "complaints": {
+    "title": "Shikayat aur Sarkari Rabtay",
+    "keHelpline": "K-Electric Helpline: 118",
+    "smsService": "SMS Service: 8119",
+    "checklistTitle": "Call karne se pehle ye tayyar rakhein:",
+    "checklistItem1": "Apna 13 hindsay ka Account Number",
+    "checklistItem2": "Apne meter ki maujooda reading ki tasweer",
+    "checklistItem3": "Halia bill ki copy",
+    "independentNotice": "Ye maloomat sirf sarif ki asaani ke liye hain."
+  }
+}
+

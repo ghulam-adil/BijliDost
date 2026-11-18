@@ -3,28 +3,41 @@
 All notable changes to this project will be documented in this file.  
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.5.0-m1] — 2026-11-16
+
+### Added
+- **Milestone 1: Project Foundation & Initial Screens**:
+  - Initialized Expo SDK 58 application structure with React Native 0.88, React 19.3.0, TypeScript `strict: true`, and Expo Router `~58.0.31`.
+  - Added `expo-dev-client` for native Android development builds.
+  - Implemented Redux Toolkit store (`store/index.ts`, `store/hooks.ts`) with `preferencesSlice` (language, onboarding, theme) and `billsSlice` (active draft state).
+  - Implemented comprehensive design system tokens: accessible color palette (WCAG AAA/AA compliant), touch targets (>=48dp, 56dp for primary CTAs), and spacing metrics (`src/theme/`).
+  - Implemented mixed typography foundations: `Noto Nastaliq Urdu` (1.8–2.2× line-height) and `Noto Sans Arabic` (1.4–1.6× line-height) with system font fallbacks.
+  - Implemented localization for Urdu (`ur`), Roman Urdu (`ur-Latn`), and English (`en`) with RTL/LTR management and directional layout utilities (`src/i18n/`).
+  - Implemented Unicode Bidirectional (Bidi) text isolation utilities (`src/utils/bidi.ts`) to isolate LTR reference numbers (`0400012345678`), PKR currency, dates, and kWh units inside Urdu RTL text.
+  - Built reusable, accessible UI primitives:
+    - `AccessibleButton` (min-height 56dp, high-contrast, loading spinner, disabled state)
+    - `Card` (low-end friendly 1px border, subtle elevation, no blur)
+    - `Chip` (selection chip for languages/categories)
+    - `ConfidenceBadge` (verified, needsReview, alert, neutral)
+    - `ScreenContainer` (anti-glare background `#F7FAF8`, SafeAreaView, scrollable option)
+    - `ErrorBoundary` (graceful Urdu/English crash recovery)
+  - Built initial screens:
+    - **Welcome / Onboarding (`app/onboarding.tsx`)**: Bijli Dost branding, tagline, 3-language selector, independence disclaimer, and continue CTA.
+    - **Home Dashboard (`app/(tabs)/index.tsx`)**: Welcome greeting, prominent Scan Bill CTA card, Recent Bills empty state, Monthly Consumption empty state, and Quick Help card.
+    - **Tab Layout & Navigation (`app/(tabs)/_layout.tsx`)**: Polished bottom navigation for Home, Scan, History, and Complaints.
+    - **Scan Screen Placeholder (`app/(tabs)/scan.tsx`)**: Camera reticle alignment guide and Milestone 3 notice.
+    - **History Screen Placeholder (`app/(tabs)/history.tsx`)**: Encrypted storage notice and empty state.
+    - **Complaints Screen (`app/(tabs)/complaints.tsx`)**: Official K-Electric helpline 118, SMS 8119, and pre-call checklist.
+  - Added unit test suites for bidi isolation, localization key parity, and Redux preferences slice.
+
 ## [0.4.0-docs] — 2026-11-16
 
 ### Changed
-- **Package Version Corrections**:
-  - Corrected `expo-sqlite` version in `TECHNICAL_ARCHITECTURE.md` to official SDK 58 release `~58.0.17`.
-  - Confirmed `expo-router` version at `~58.0.31`.
-  - Added `expo-dev-client` to the exact Milestone 1 dependencies.
-- **Fail-Closed SQLCipher Initialization**:
-  - Enforced mandatory verification sequence: query `PRAGMA cipher_version;` and verify SQLCipher is active before executing `PRAGMA key`.
-  - Strictly banned silent fallback to unencrypted SQLite; missing SQLCipher halts initialization with `FatalSecurityError`.
-  - Added automated security testing acceptance criterion for SQLCipher unavailability.
-- **Platform-Specific SecureStore Uninstall Realities**:
-  - Corrected documentation regarding uninstall persistence: Android Keystore entries are erased on uninstall, whereas iOS Keychain items may persist under the same bundle ID.
-  - Documented deterministic handling across 5 lifecycle states, including orphaned encrypted databases on Android (halting rule: never auto-overwrite; explain recovery limitations and require explicit user confirmation).
-  - Specified that "Clear All Data" must atomically delete both the SQLite file and the `SecureStore` key across Android and iOS.
-- **Bill Image Retention & Export Warning**:
-  - Clarified that MVP includes **no permanent bill image retention**; temporary images are purged immediately in a `finally` block across success, failure, and cancellation paths.
-  - Deferred encrypted image retention to a future milestone.
-  - Added mandatory security notice on "Export My Data" warning that exported JSON contains unencrypted PII outside the app's encrypted database.
-- **Milestone 1 Exit Criteria Refinement**:
-  - Explicitly specified exit criteria: Android development build generation, installation/launch on a physical Android device, independent web startup, and on-device Urdu RTL font rendering verification.
-  - Clarified that native SQLCipher testing begins in Milestone 2.
+- Corrected `expo-sqlite` version to `~58.0.17` and `expo-router` to `~58.0.31`.
+- Enforced fail-closed SQLCipher initialization (`PRAGMA cipher_version` verification).
+- Documented platform-specific SecureStore uninstall behavior (Android keystore reset vs. iOS keychain persistence).
+- Explicitly prohibited permanent bill image retention in MVP.
+- Added `expo-dev-client` to Milestone 1 dependencies and refined physical device testing exit criteria.
 
 ## [0.3.0-docs] — 2026-11-16
 
