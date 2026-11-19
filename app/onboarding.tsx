@@ -28,7 +28,11 @@ export default function OnboardingScreen() {
   };
 
   return (
-    <ScreenContainer scrollable={true} contentContainerStyle={styles.container}>
+    <ScreenContainer
+      scrollable={true}
+      contentContainerStyle={styles.container}
+      edges={['top', 'bottom', 'left', 'right']}
+    >
       {/* Brand Header */}
       <View style={styles.header}>
         <View style={styles.logoBadge}>

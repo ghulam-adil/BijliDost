@@ -15,6 +15,7 @@ export interface ScreenContainerProps {
   scrollable?: boolean;
   style?: ViewStyle;
   contentContainerStyle?: ViewStyle;
+  edges?: readonly ('top' | 'right' | 'bottom' | 'left')[];
 }
 
 export const ScreenContainer: React.FC<ScreenContainerProps> = ({
@@ -22,9 +23,10 @@ export const ScreenContainer: React.FC<ScreenContainerProps> = ({
   scrollable = false,
   style,
   contentContainerStyle,
+  edges = ['top', 'left', 'right'],
 }) => {
   return (
-    <SafeAreaView style={[styles.safeArea, style]} edges={['top', 'left', 'right']}>
+    <SafeAreaView style={[styles.safeArea, style]} edges={edges}>
       <StatusBar style="dark" />
       {scrollable ? (
         <ScrollView
