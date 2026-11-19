@@ -12,30 +12,25 @@ export function isRtlLanguage(language: SupportedLanguage): boolean {
 }
 
 /**
- * Updates the native I18nManager RTL preference.
- * Note: Changing I18nManager requires an app reload for native view mirrors on some Android devices.
+ * Layout direction applied to the app root so the UI mirrors immediately when the
+ * language changes, without waiting for a native reload.
+ */
+export function getLayoutDirection(language: SupportedLanguage): 'rtl' | 'ltr' {
+  return isRtlLanguage(language) ? 'rtl' : 'ltr';
+}
+
+/**
+ * Syncs the native I18nManager flag so native-level pieces (scroll views, system
+ * gestures, default text alignment) match on the NEXT app launch.
+ * Must be called from an effect, never from a reducer.
+ * Returns true when the native flag changed.
  */
 export function applyRtlPreference(language: SupportedLanguage): boolean {
   const shouldBeRtl = isRtlLanguage(language);
   if (I18nManager.isRTL !== shouldBeRtl) {
     I18nManager.allowRTL(shouldBeRtl);
     I18nManager.forceRTL(shouldBeRtl);
-    return true; // Indicates layout direction changed
+    return true;
   }
   return false;
 }
-
-/**
- * Returns directional flex-direction based on active language.
- */
-export function getRowDirection(language: SupportedLanguage): 'row' | 'row-reverse' {
-  return isRtlLanguage(language) ? 'row-reverse' : 'row';
-}
-
-/**
- * Returns logical text alignment based on language.
- */
-export function getTextAlign(language: SupportedLanguage): 'right' | 'left' {
-  return isRtlLanguage(language) ? 'right' : 'left';
-}
-

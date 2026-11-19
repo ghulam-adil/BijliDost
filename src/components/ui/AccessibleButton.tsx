@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Pressable,
-  Text,
   StyleSheet,
   ActivityIndicator,
   ViewStyle,
@@ -10,8 +9,7 @@ import {
 } from 'react-native';
 import { Colors } from '@/theme/colors';
 import { Spacing, TouchTargets, Radius } from '@/theme/spacing';
-import { FontFamilies } from '@/theme/fonts';
-import { useTranslation } from '@/store/hooks';
+import { AppText } from './AppText';
 
 export interface AccessibleButtonProps {
   label: string;
@@ -38,9 +36,6 @@ export const AccessibleButton: React.FC<AccessibleButtonProps> = ({
   labelStyle,
   accessibilityHint,
 }) => {
-  const { language } = useTranslation();
-  const isUrdu = language === 'ur';
-
   const minHeight = size === 'large' ? TouchTargets.primaryButton : TouchTargets.min;
 
   const getBackgroundColor = (pressed: boolean) => {
@@ -82,19 +77,14 @@ export const AccessibleButton: React.FC<AccessibleButtonProps> = ({
         <ActivityIndicator color={getTextColor()} size="small" />
       ) : (
         <>
-          {icon && <>{icon}</>}
-          <Text
-            style={[
-              styles.label,
-              {
-                color: getTextColor(),
-                fontFamily: isUrdu ? FontFamilies.urduSans : FontFamilies.latinSans,
-              },
-              labelStyle,
-            ]}
+          {icon}
+          <AppText
+            variant="button"
+            color={getTextColor()}
+            style={[styles.label, labelStyle]}
           >
             {label}
-          </Text>
+          </AppText>
         </>
       )}
     </Pressable>
@@ -112,9 +102,6 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   label: {
-    fontSize: 18,
-    fontWeight: '600',
     textAlign: 'center',
   },
 });
-

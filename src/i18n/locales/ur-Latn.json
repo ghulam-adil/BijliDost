@@ -11,6 +11,7 @@
     "verified": "Verified",
     "needsReview": "Check Karein",
     "unverified": "Unverified",
+    "alert": "Intibah",
     "help": "Madad aur Rehnumai",
     "loading": "Load ho raha hai..."
   },
@@ -20,6 +21,7 @@
     "urdu": "اردو",
     "romanUrdu": "Roman Urdu",
     "english": "English",
+    "privacyTitle": "Mukammal Razdari aur Azadi",
     "disclaimer": "Bijli Dost aik azad helper app hai aur K-Electric ya NEPRA se wabasta nahi hai. Tamam data aap ke phone par mehfooz rehta hai."
   },
   "dashboard": {
@@ -59,7 +61,9 @@
   "complaints": {
     "title": "Shikayat aur Sarkari Rabtay",
     "keHelpline": "K-Electric Helpline: 118",
+    "keHelplineDesc": "Bijli ki hangami surat-e-haal aur shikayat ke liye 24 ghantay call center",
     "smsService": "SMS Service: 8119",
+    "smsServiceDesc": "Bill ya status ke liye apna 13 hindsay ka account number 8119 par SMS karein",
     "checklistTitle": "Call karne se pehle ye tayyar rakhein:",
     "checklistItem1": "Apna 13 hindsay ka Account Number",
     "checklistItem2": "Apne meter ki maujooda reading ki tasweer",

@@ -1,62 +1,69 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { ScreenContainer } from '@/components/ui/ScreenContainer';
+import { AppText } from '@/components/ui/AppText';
+import { DecorativeIcon } from '@/components/ui/DecorativeIcon';
 import { Card } from '@/components/ui/Card';
 import { Colors } from '@/theme/colors';
 import { Spacing, Radius } from '@/theme/spacing';
 import { useTranslation } from '@/store/hooks';
+import type { TranslationKey } from '@/i18n';
+
+const CHECKLIST_KEYS: readonly TranslationKey[] = [
+  'complaints.checklistItem1',
+  'complaints.checklistItem2',
+  'complaints.checklistItem3',
+];
 
 export default function ComplaintsScreen() {
   const { t } = useTranslation();
 
   return (
     <ScreenContainer scrollable={true} contentContainerStyle={styles.container}>
-      <Text style={styles.title}>{t('complaints.title')}</Text>
+      <AppText variant="h1" style={styles.title}>{t('complaints.title')}</AppText>
 
       {/* Official Helplines Card */}
       <Card variant="elevated" style={styles.helplineCard}>
         <View style={styles.helplineRow}>
-          <Text style={styles.channelIcon}>📞</Text>
+          <DecorativeIcon glyph="📞" size={28} />
           <View style={styles.channelText}>
-            <Text style={styles.channelTitle}>{t('complaints.keHelpline')}</Text>
-            <Text style={styles.channelSubtitle}>24/7 Call Center for electricity emergencies & complaints</Text>
+            <AppText variant="h3" color={Colors.brandPrimaryDark}>{t('complaints.keHelpline')}</AppText>
+            <AppText variant="caption" color={Colors.textSecondary}>{t('complaints.keHelplineDesc')}</AppText>
           </View>
         </View>
 
         <View style={styles.divider} />
 
         <View style={styles.helplineRow}>
-          <Text style={styles.channelIcon}>💬</Text>
+          <DecorativeIcon glyph="💬" size={28} />
           <View style={styles.channelText}>
-            <Text style={styles.channelTitle}>{t('complaints.smsService')}</Text>
-            <Text style={styles.channelSubtitle}>SMS your 13-digit account number to 8119 for bill/status</Text>
+            <AppText variant="h3" color={Colors.brandPrimaryDark}>{t('complaints.smsService')}</AppText>
+            <AppText variant="caption" color={Colors.textSecondary}>{t('complaints.smsServiceDesc')}</AppText>
           </View>
         </View>
       </Card>
 
       {/* Checklist Card */}
       <Card variant="flat" style={styles.checklistCard}>
-        <Text style={styles.checklistHeader}>{t('complaints.checklistTitle')}</Text>
-        
-        <View style={styles.checkItem}>
-          <Text style={styles.checkBadge}>1</Text>
-          <Text style={styles.checkText}>{t('complaints.checklistItem1')}</Text>
-        </View>
+        <AppText variant="h3" style={styles.checklistHeader}>{t('complaints.checklistTitle')}</AppText>
 
-        <View style={styles.checkItem}>
-          <Text style={styles.checkBadge}>2</Text>
-          <Text style={styles.checkText}>{t('complaints.checklistItem2')}</Text>
-        </View>
-
-        <View style={styles.checkItem}>
-          <Text style={styles.checkBadge}>3</Text>
-          <Text style={styles.checkText}>{t('complaints.checklistItem3')}</Text>
-        </View>
+        {CHECKLIST_KEYS.map((key, index) => (
+          <View key={key} style={styles.checkItem}>
+            <View style={styles.checkBadge}>
+              <AppText variant="caption" color={Colors.brandPrimaryDark} script="latin" style={styles.checkBadgeText}>
+                {String(index + 1)}
+              </AppText>
+            </View>
+            <AppText variant="body" style={styles.checkText}>{t(key)}</AppText>
+          </View>
+        ))}
       </Card>
 
       {/* Independence Disclaimer */}
       <View style={styles.disclaimerContainer}>
-        <Text style={styles.disclaimerText}>{t('complaints.independentNotice')}</Text>
+        <AppText variant="caption" color={Colors.textMuted} style={styles.centered}>
+          {t('complaints.independentNotice')}
+        </AppText>
       </View>
     </ScreenContainer>
   );
@@ -67,10 +74,10 @@ const styles = StyleSheet.create({
     paddingBottom: Spacing.section,
   },
   title: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: Colors.textPrimary,
     marginBottom: Spacing.lg,
+  },
+  centered: {
+    textAlign: 'center',
   },
   helplineCard: {
     marginBottom: Spacing.xl,
@@ -81,22 +88,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: Spacing.md,
   },
-  channelIcon: {
-    fontSize: 28,
-  },
   channelText: {
     flex: 1,
-  },
-  channelTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: Colors.brandPrimaryDark,
-    marginBottom: 2,
-  },
-  channelSubtitle: {
-    fontSize: 13,
-    color: Colors.textSecondary,
-    lineHeight: 18,
   },
   divider: {
     height: 1,
@@ -108,9 +101,6 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.xl,
   },
   checklistHeader: {
-    fontSize: 17,
-    fontWeight: '700',
-    color: Colors.textPrimary,
     marginBottom: Spacing.md,
   },
   checkItem: {
@@ -124,27 +114,17 @@ const styles = StyleSheet.create({
     height: 28,
     borderRadius: Radius.full,
     backgroundColor: Colors.brandLight,
-    color: Colors.brandPrimaryDark,
-    textAlign: 'center',
-    lineHeight: 28,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  checkBadgeText: {
     fontWeight: '700',
-    fontSize: 14,
   },
   checkText: {
     flex: 1,
-    fontSize: 15,
-    color: Colors.textPrimary,
-    lineHeight: 22,
   },
   disclaimerContainer: {
     paddingHorizontal: Spacing.md,
     alignItems: 'center',
   },
-  disclaimerText: {
-    fontSize: 13,
-    color: Colors.textMuted,
-    textAlign: 'center',
-    lineHeight: 18,
-  },
 });
-

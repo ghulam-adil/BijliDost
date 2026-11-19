@@ -1,40 +1,44 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ScreenContainer } from '@/components/ui/ScreenContainer';
 import { AccessibleButton } from '@/components/ui/AccessibleButton';
+import { AppText } from '@/components/ui/AppText';
+import { DecorativeIcon } from '@/components/ui/DecorativeIcon';
 import { Card } from '@/components/ui/Card';
 import { Colors } from '@/theme/colors';
 import { Spacing, Radius } from '@/theme/spacing';
-import { FontFamilies } from '@/theme/fonts';
 import { useTranslation, useAppSelector } from '@/store/hooks';
 
 export default function HomeScreen() {
   const router = useRouter();
-  const { t, language } = useTranslation();
-  const isUrdu = language === 'ur';
+  const { t } = useTranslation();
   const recentBills = useAppSelector((state) => state.bills.items);
 
   return (
     <ScreenContainer scrollable={true} contentContainerStyle={styles.container}>
       {/* Welcome Top Banner */}
       <View style={styles.topBanner}>
-        <View>
-          <Text style={styles.greetingText}>{t('dashboard.greeting')}</Text>
-          <Text style={styles.subGreetingText}>{t('common.appName')}</Text>
+        <View style={styles.bannerText}>
+          <AppText variant="h2">{t('dashboard.greeting')}</AppText>
+          <AppText variant="body" color={Colors.brandPrimary} style={styles.bold}>
+            {t('common.appName')}
+          </AppText>
         </View>
         <View style={styles.logoPill}>
-          <Text style={styles.boltIcon}>⚡</Text>
+          <DecorativeIcon glyph="⚡" size={22} />
         </View>
       </View>
 
       {/* Primary Action Card: Scan Bill */}
       <Card variant="highlight" style={styles.scanActionCard}>
         <View style={styles.scanIconContainer}>
-          <Text style={styles.scanEmoji}>📸</Text>
+          <DecorativeIcon glyph="📸" size={34} />
         </View>
-        <Text style={styles.scanCardTitle}>{t('dashboard.scanCardTitle')}</Text>
-        <Text style={styles.scanCardSubtitle}>{t('dashboard.scanCardSubtitle')}</Text>
+        <AppText variant="h2" style={styles.centered}>{t('dashboard.scanCardTitle')}</AppText>
+        <AppText variant="bodySecondary" color={Colors.textSecondary} style={[styles.centered, styles.scanSubtitle]}>
+          {t('dashboard.scanCardSubtitle')}
+        </AppText>
         <AccessibleButton
           label={t('dashboard.scanCta')}
           onPress={() => router.push('/(tabs)/scan')}
@@ -44,48 +48,48 @@ export default function HomeScreen() {
       </Card>
 
       {/* Recent Bills Section */}
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>{t('dashboard.recentBillsTitle')}</Text>
-      </View>
+      <AppText variant="h3" style={styles.sectionTitle}>{t('dashboard.recentBillsTitle')}</AppText>
 
       {recentBills.length === 0 ? (
         <Card variant="flat" style={styles.emptyCard}>
-          <Text style={styles.emptyIcon}>📄</Text>
-          <Text style={styles.emptyTitle}>{t('dashboard.noRecentBills')}</Text>
-          <Text style={styles.emptySubtitle}>{t('dashboard.noRecentBillsDesc')}</Text>
+          <DecorativeIcon glyph="📄" size={32} style={styles.emptyIcon} />
+          <AppText variant="body" style={[styles.centered, styles.bold]}>{t('dashboard.noRecentBills')}</AppText>
+          <AppText variant="bodySecondary" color={Colors.textMuted} style={[styles.centered, styles.emptySubtitle]}>
+            {t('dashboard.noRecentBillsDesc')}
+          </AppText>
         </Card>
       ) : (
         <View style={styles.billsList}>
           {recentBills.map((bill) => (
             <Card key={bill.id} style={styles.billItemCard}>
-              <Text>{bill.billingMonth}</Text>
+              <AppText variant="body">{bill.billingMonth}</AppText>
             </Card>
           ))}
         </View>
       )}
 
       {/* Monthly Consumption Section */}
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>{t('dashboard.consumptionTitle')}</Text>
-      </View>
+      <AppText variant="h3" style={styles.sectionTitle}>{t('dashboard.consumptionTitle')}</AppText>
 
       <Card variant="flat" style={styles.emptyCard}>
-        <Text style={styles.emptyIcon}>📊</Text>
-        <Text style={styles.emptyTitle}>{t('dashboard.noConsumptionData')}</Text>
-        <Text style={styles.emptySubtitle}>{t('dashboard.noConsumptionDesc')}</Text>
+        <DecorativeIcon glyph="📊" size={32} style={styles.emptyIcon} />
+        <AppText variant="body" style={[styles.centered, styles.bold]}>{t('dashboard.noConsumptionData')}</AppText>
+        <AppText variant="bodySecondary" color={Colors.textMuted} style={[styles.centered, styles.emptySubtitle]}>
+          {t('dashboard.noConsumptionDesc')}
+        </AppText>
       </Card>
 
       {/* Quick Help & Official Contacts Section */}
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>{t('dashboard.quickHelpTitle')}</Text>
-      </View>
+      <AppText variant="h3" style={styles.sectionTitle}>{t('dashboard.quickHelpTitle')}</AppText>
 
       <Card variant="flat" style={styles.helpCard}>
         <View style={styles.helpRow}>
-          <Text style={styles.helpIcon}>📞</Text>
+          <DecorativeIcon glyph="📞" size={28} />
           <View style={styles.helpTextContainer}>
-            <Text style={styles.helpTitle}>K-Electric 118</Text>
-            <Text style={styles.helpDesc}>{t('dashboard.quickHelpDesc')}</Text>
+            <AppText variant="body" style={styles.bold}>{t('complaints.keHelpline')}</AppText>
+            <AppText variant="bodySecondary" color={Colors.textSecondary}>
+              {t('dashboard.quickHelpDesc')}
+            </AppText>
           </View>
         </View>
         <AccessibleButton
@@ -103,6 +107,12 @@ const styles = StyleSheet.create({
   container: {
     paddingBottom: Spacing.section,
   },
+  centered: {
+    textAlign: 'center',
+  },
+  bold: {
+    fontWeight: '700',
+  },
   topBanner: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -110,16 +120,8 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.lg,
     paddingVertical: Spacing.sm,
   },
-  greetingText: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: Colors.textPrimary,
-  },
-  subGreetingText: {
-    fontSize: 16,
-    color: Colors.brandPrimary,
-    fontWeight: '600',
-    marginTop: 2,
+  bannerText: {
+    flexShrink: 1,
   },
   logoPill: {
     width: 44,
@@ -128,9 +130,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.brandLight,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  boltIcon: {
-    fontSize: 22,
   },
   scanActionCard: {
     alignItems: 'center',
@@ -149,34 +148,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: Spacing.md,
   },
-  scanEmoji: {
-    fontSize: 34,
-  },
-  scanCardTitle: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: Colors.textPrimary,
-    marginBottom: Spacing.xs,
-    textAlign: 'center',
-  },
-  scanCardSubtitle: {
-    fontSize: 15,
-    color: Colors.textSecondary,
+  scanSubtitle: {
     marginBottom: Spacing.xl,
-    textAlign: 'center',
     paddingHorizontal: Spacing.md,
   },
   scanButton: {
     width: '90%',
   },
-  sectionHeader: {
+  sectionTitle: {
     marginTop: Spacing.lg,
     marginBottom: Spacing.sm,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: Colors.textPrimary,
   },
   emptyCard: {
     alignItems: 'center',
@@ -186,21 +167,9 @@ const styles = StyleSheet.create({
     borderColor: '#CFDCD6',
   },
   emptyIcon: {
-    fontSize: 32,
     marginBottom: Spacing.sm,
   },
-  emptyTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: Colors.textPrimary,
-    marginBottom: Spacing.xs,
-    textAlign: 'center',
-  },
   emptySubtitle: {
-    fontSize: 14,
-    color: Colors.textMuted,
-    textAlign: 'center',
-    lineHeight: 20,
     paddingHorizontal: Spacing.lg,
   },
   billsList: {
@@ -219,25 +188,10 @@ const styles = StyleSheet.create({
     gap: Spacing.md,
     marginBottom: Spacing.md,
   },
-  helpIcon: {
-    fontSize: 28,
-  },
   helpTextContainer: {
     flex: 1,
-  },
-  helpTitle: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: Colors.textPrimary,
-    marginBottom: 2,
-  },
-  helpDesc: {
-    fontSize: 14,
-    color: Colors.textSecondary,
-    lineHeight: 20,
   },
   helpButton: {
     width: '100%',
   },
 });
-

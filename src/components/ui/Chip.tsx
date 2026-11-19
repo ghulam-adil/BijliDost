@@ -1,8 +1,9 @@
 import React from 'react';
-import { Pressable, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { Pressable, StyleSheet, ViewStyle, TextStyle } from 'react-native';
 import { Colors } from '@/theme/colors';
 import { Spacing, Radius, TouchTargets } from '@/theme/spacing';
-import { FontFamilies } from '@/theme/fonts';
+import type { TextScript } from '@/theme/typography';
+import { AppText } from './AppText';
 
 export interface ChipProps {
   label: string;
@@ -10,7 +11,8 @@ export interface ChipProps {
   onPress: () => void;
   style?: ViewStyle;
   labelStyle?: TextStyle;
-  isUrdu?: boolean;
+  /** Force the label script (e.g. language names are always shown in their own script). */
+  script?: TextScript;
 }
 
 export const Chip: React.FC<ChipProps> = ({
@@ -19,13 +21,14 @@ export const Chip: React.FC<ChipProps> = ({
   onPress,
   style,
   labelStyle,
-  isUrdu = false,
+  script,
 }) => {
   return (
     <Pressable
       onPress={onPress}
       accessible={true}
       accessibilityRole="button"
+      accessibilityLabel={label}
       accessibilityState={{ selected: isSelected }}
       style={({ pressed }) => [
         styles.base,
@@ -34,19 +37,14 @@ export const Chip: React.FC<ChipProps> = ({
         style,
       ]}
     >
-      <Text
-        style={[
-          styles.label,
-          {
-            color: isSelected ? Colors.brandPrimaryDark : Colors.textPrimary,
-            fontFamily: isUrdu ? FontFamilies.urduSans : FontFamilies.latinSans,
-            fontWeight: isSelected ? '700' : '500',
-          },
-          labelStyle,
-        ]}
+      <AppText
+        variant="body"
+        script={script}
+        color={isSelected ? Colors.brandPrimaryDark : Colors.textPrimary}
+        style={[styles.label, { fontWeight: isSelected ? '700' : '500' }, labelStyle]}
       >
         {label}
-      </Text>
+      </AppText>
     </Pressable>
   );
 };
@@ -73,8 +71,6 @@ const styles = StyleSheet.create({
     opacity: 0.8,
   },
   label: {
-    fontSize: 16,
     textAlign: 'center',
   },
 });
-

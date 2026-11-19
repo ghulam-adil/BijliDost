@@ -11,6 +11,7 @@
     "verified": "Verified",
     "needsReview": "Needs Review",
     "unverified": "Unverified",
+    "alert": "Alert",
     "help": "Help & Guidance",
     "loading": "Loading..."
   },
@@ -20,6 +21,7 @@
     "urdu": "اردو",
     "romanUrdu": "Roman Urdu",
     "english": "English",
+    "privacyTitle": "Privacy & Independent Helper",
     "disclaimer": "Bijli Dost is an independent assistance app and is not affiliated with K-Electric or NEPRA. All bill data remains strictly on your device."
   },
   "dashboard": {
@@ -59,7 +61,9 @@
   "complaints": {
     "title": "Complaints & Official Contacts",
     "keHelpline": "K-Electric Helpline: 118",
+    "keHelplineDesc": "24/7 call center for electricity emergencies and complaints",
     "smsService": "SMS Service: 8119",
+    "smsServiceDesc": "SMS your 13-digit account number to 8119 for bill/status",
     "checklistTitle": "Have these ready before calling:",
     "checklistItem1": "Your 13-digit Account Number",
     "checklistItem2": "Photo of your current physical meter reading",

@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, ViewStyle } from 'react-native';
+import { View, StyleSheet, ViewStyle } from 'react-native';
 import { Colors } from '@/theme/colors';
 import { Spacing, Radius } from '@/theme/spacing';
-import { FontFamilies } from '@/theme/fonts';
 import { useTranslation } from '@/store/hooks';
+import { AppText } from './AppText';
 
 export type BadgeStatus = 'verified' | 'needsReview' | 'alert' | 'neutral';
 
@@ -18,8 +18,7 @@ export const ConfidenceBadge: React.FC<ConfidenceBadgeProps> = ({
   label,
   style,
 }) => {
-  const { t, language } = useTranslation();
-  const isUrdu = language === 'ur';
+  const { t } = useTranslation();
 
   const getBadgeConfig = () => {
     switch (status) {
@@ -39,7 +38,7 @@ export const ConfidenceBadge: React.FC<ConfidenceBadgeProps> = ({
         return {
           bg: Colors.statusAlertBg,
           text: Colors.statusAlert,
-          defaultLabel: 'Alert',
+          defaultLabel: t('common.alert'),
         };
       case 'neutral':
       default:
@@ -56,17 +55,9 @@ export const ConfidenceBadge: React.FC<ConfidenceBadgeProps> = ({
 
   return (
     <View style={[styles.container, { backgroundColor: config.bg }, style]}>
-      <Text
-        style={[
-          styles.label,
-          {
-            color: config.text,
-            fontFamily: isUrdu ? FontFamilies.urduSans : FontFamilies.latinSans,
-          },
-        ]}
-      >
+      <AppText variant="caption" color={config.text} style={styles.label}>
         {displayLabel}
-      </Text>
+      </AppText>
     </View>
   );
 };
@@ -79,8 +70,6 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   label: {
-    fontSize: 13,
     fontWeight: '600',
   },
 });
-

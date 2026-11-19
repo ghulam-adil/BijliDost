@@ -1,4 +1,18 @@
-import { isRtlLanguage, getTranslation, translations } from '../index';
+import { isRtlLanguage, getLayoutDirection, getTranslation, translations } from '../index';
+
+type Tree = { [key: string]: string | Tree };
+
+function flattenKeys(tree: Tree, prefix = ''): string[] {
+  return Object.entries(tree).flatMap(([key, value]) =>
+    typeof value === 'string' ? [`${prefix}${key}`] : flattenKeys(value, `${prefix}${key}.`)
+  );
+}
+
+function flattenValues(tree: Tree): string[] {
+  return Object.values(tree).flatMap((value) =>
+    typeof value === 'string' ? [value] : flattenValues(value)
+  );
+}
 
 describe('Localization & RTL Configuration', () => {
   it('should identify Urdu as RTL and Roman Urdu / English as LTR', () => {
@@ -7,34 +21,34 @@ describe('Localization & RTL Configuration', () => {
     expect(isRtlLanguage('en')).toBe(false);
   });
 
+  it('should derive the root layout direction from the language', () => {
+    expect(getLayoutDirection('ur')).toBe('rtl');
+    expect(getLayoutDirection('ur-Latn')).toBe('ltr');
+    expect(getLayoutDirection('en')).toBe('ltr');
+  });
+
   it('should retrieve correct translated strings for all supported languages', () => {
     expect(getTranslation('ur', 'common.appName')).toBe('بجلی دوست');
     expect(getTranslation('ur-Latn', 'common.appName')).toBe('Bijli Dost');
     expect(getTranslation('en', 'common.appName')).toBe('Bijli Dost');
   });
 
-  it('should have key parity across all three locale JSON files', () => {
-    const urKeys = Object.keys(translations.ur).sort();
-    const urLatnKeys = Object.keys(translations['ur-Latn']).sort();
-    const enKeys = Object.keys(translations.en).sort();
+  it('should have full (deep) key parity across all three locale JSON files', () => {
+    const urKeys = flattenKeys(translations.ur as Tree).sort();
+    expect(flattenKeys(translations['ur-Latn'] as Tree).sort()).toEqual(urKeys);
+    expect(flattenKeys(translations.en as Tree).sort()).toEqual(urKeys);
+  });
 
-    expect(urLatnKeys).toEqual(urKeys);
-    expect(enKeys).toEqual(urKeys);
-
-    // Deep check sub-keys
-    for (const section of urKeys as Array<keyof typeof translations.ur>) {
-      const urSubKeys = Object.keys(translations.ur[section]).sort();
-      const urLatnSubKeys = Object.keys(translations['ur-Latn'][section]).sort();
-      const enSubKeys = Object.keys(translations.en[section]).sort();
-
-      expect(urLatnSubKeys).toEqual(urSubKeys);
-      expect(enSubKeys).toEqual(urSubKeys);
+  it('should not contain empty translation values', () => {
+    for (const locale of Object.values(translations)) {
+      for (const value of flattenValues(locale as Tree)) {
+        expect(value.trim().length).toBeGreaterThan(0);
+      }
     }
   });
 
-  it('should fallback gracefully to English if an unknown key is queried', () => {
+  it('should fall back to the key path if an unknown key is queried', () => {
     const missing = getTranslation('ur', 'nonexistent.section.key');
     expect(missing).toBe('nonexistent.section.key');
   });
 });
-

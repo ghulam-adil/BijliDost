@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { ScreenContainer } from '@/components/ui/ScreenContainer';
 import { AccessibleButton } from '@/components/ui/AccessibleButton';
+import { AppText } from '@/components/ui/AppText';
+import { DecorativeIcon } from '@/components/ui/DecorativeIcon';
 import { Card } from '@/components/ui/Card';
 import { Colors } from '@/theme/colors';
 import { Spacing, Radius } from '@/theme/spacing';
@@ -12,16 +14,18 @@ export default function ScanScreen() {
 
   return (
     <ScreenContainer scrollable={true} contentContainerStyle={styles.container}>
-      <Text style={styles.title}>{t('scan.title')}</Text>
+      <AppText variant="h1" style={styles.title}>{t('scan.title')}</AppText>
 
-      {/* Camera Guidance Frame Placeholder */}
+      {/* Camera Guidance Frame Placeholder (replaced by the live camera in Milestone 3) */}
       <View style={styles.cameraPlaceholder}>
-        <View style={styles.reticleCornerTopLeft} />
-        <View style={styles.reticleCornerTopRight} />
-        <View style={styles.reticleCornerBottomLeft} />
-        <View style={styles.reticleCornerBottomRight} />
-        <Text style={styles.cameraEmoji}>📸</Text>
-        <Text style={styles.cameraTip}>{t('scan.cameraTip')}</Text>
+        <View style={[styles.corner, styles.cornerTopStart]} />
+        <View style={[styles.corner, styles.cornerTopEnd]} />
+        <View style={[styles.corner, styles.cornerBottomStart]} />
+        <View style={[styles.corner, styles.cornerBottomEnd]} />
+        <DecorativeIcon glyph="📸" size={48} style={styles.cameraEmoji} />
+        <AppText variant="body" color="#D6E0DC" style={styles.cameraTip}>
+          {t('scan.cameraTip')}
+        </AppText>
       </View>
 
       {/* Action Buttons */}
@@ -30,33 +34,35 @@ export default function ScanScreen() {
           label={t('scan.takePhoto')}
           onPress={() => {}}
           size="large"
-          style={styles.primaryBtn}
+          style={styles.fullWidth}
         />
         <AccessibleButton
           label={t('scan.chooseGallery')}
           variant="outline"
           onPress={() => {}}
           size="large"
-          style={styles.secondaryBtn}
+          style={styles.fullWidth}
         />
       </View>
 
       {/* Milestone Roadmap Note */}
       <Card variant="flat" style={styles.noticeCard}>
-        <Text style={styles.noticeText}>{t('scan.milestoneNotice')}</Text>
+        <AppText variant="bodySecondary" color={Colors.textSecondary} style={styles.cameraTip}>
+          {t('scan.milestoneNotice')}
+        </AppText>
       </Card>
     </ScreenContainer>
   );
 }
+
+const CORNER_SIZE = 32;
+const CORNER_INSET = 20;
 
 const styles = StyleSheet.create({
   container: {
     paddingBottom: Spacing.section,
   },
   title: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: Colors.textPrimary,
     marginBottom: Spacing.lg,
   },
   cameraPlaceholder: {
@@ -66,78 +72,54 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: Spacing.xl,
-    position: 'relative',
     padding: Spacing.xl,
   },
   cameraEmoji: {
-    fontSize: 48,
     marginBottom: Spacing.md,
   },
   cameraTip: {
-    color: '#D6E0DC',
-    fontSize: 16,
     textAlign: 'center',
-    lineHeight: 24,
   },
-  reticleCornerTopLeft: {
+  // Logical (start/end) positioning so the reticle mirrors correctly in RTL.
+  corner: {
     position: 'absolute',
-    top: 20,
-    left: 20,
-    width: 32,
-    height: 32,
+    width: CORNER_SIZE,
+    height: CORNER_SIZE,
+    borderColor: Colors.brandPrimary,
+  },
+  cornerTopStart: {
+    top: CORNER_INSET,
+    start: CORNER_INSET,
     borderTopWidth: 3,
-    borderLeftWidth: 3,
-    borderColor: Colors.brandPrimary,
+    borderStartWidth: 3,
   },
-  reticleCornerTopRight: {
-    position: 'absolute',
-    top: 20,
-    right: 20,
-    width: 32,
-    height: 32,
+  cornerTopEnd: {
+    top: CORNER_INSET,
+    end: CORNER_INSET,
     borderTopWidth: 3,
-    borderRightWidth: 3,
-    borderColor: Colors.brandPrimary,
+    borderEndWidth: 3,
   },
-  reticleCornerBottomLeft: {
-    position: 'absolute',
-    bottom: 20,
-    left: 20,
-    width: 32,
-    height: 32,
+  cornerBottomStart: {
+    bottom: CORNER_INSET,
+    start: CORNER_INSET,
     borderBottomWidth: 3,
-    borderLeftWidth: 3,
-    borderColor: Colors.brandPrimary,
+    borderStartWidth: 3,
   },
-  reticleCornerBottomRight: {
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-    width: 32,
-    height: 32,
+  cornerBottomEnd: {
+    bottom: CORNER_INSET,
+    end: CORNER_INSET,
     borderBottomWidth: 3,
-    borderRightWidth: 3,
-    borderColor: Colors.brandPrimary,
+    borderEndWidth: 3,
   },
   buttonGroup: {
     gap: Spacing.md,
     marginBottom: Spacing.xl,
   },
-  primaryBtn: {
-    width: '100%',
-  },
-  secondaryBtn: {
+  fullWidth: {
     width: '100%',
   },
   noticeCard: {
     backgroundColor: '#F3F6F4',
     borderColor: '#D4DDD8',
   },
-  noticeText: {
-    fontSize: 14,
-    color: Colors.textSecondary,
-    textAlign: 'center',
-    lineHeight: 20,
-  },
 });
-

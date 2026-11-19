@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { ScreenContainer } from '@/components/ui/ScreenContainer';
+import { AppText } from '@/components/ui/AppText';
+import { DecorativeIcon } from '@/components/ui/DecorativeIcon';
 import { Card } from '@/components/ui/Card';
 import { Colors } from '@/theme/colors';
 import { Spacing, Radius } from '@/theme/spacing';
@@ -12,21 +14,23 @@ export default function HistoryScreen() {
 
   return (
     <ScreenContainer scrollable={true} contentContainerStyle={styles.container}>
-      <Text style={styles.title}>{t('history.title')}</Text>
+      <AppText variant="h1" style={styles.title}>{t('history.title')}</AppText>
 
       {bills.length === 0 ? (
         <Card variant="flat" style={styles.emptyContainer}>
           <View style={styles.iconCircle}>
-            <Text style={styles.emptyIcon}>📁</Text>
+            <DecorativeIcon glyph="📁" size={30} />
           </View>
-          <Text style={styles.emptyTitle}>{t('history.emptyTitle')}</Text>
-          <Text style={styles.emptySubtitle}>{t('history.emptyDesc')}</Text>
+          <AppText variant="h3" style={styles.centered}>{t('history.emptyTitle')}</AppText>
+          <AppText variant="bodySecondary" color={Colors.textMuted} style={[styles.centered, styles.emptySubtitle]}>
+            {t('history.emptyDesc')}
+          </AppText>
         </Card>
       ) : (
         <View style={styles.list}>
           {bills.map((item) => (
             <Card key={item.id} style={styles.billCard}>
-              <Text>{item.billingMonth}</Text>
+              <AppText variant="body">{item.billingMonth}</AppText>
             </Card>
           ))}
         </View>
@@ -34,8 +38,10 @@ export default function HistoryScreen() {
 
       {/* Security notice */}
       <View style={styles.securityBox}>
-        <Text style={styles.lockIcon}>🔒</Text>
-        <Text style={styles.securityText}>{t('history.securityNote')}</Text>
+        <DecorativeIcon glyph="🔒" size={14} />
+        <AppText variant="caption" color={Colors.textMuted} style={[styles.centered, styles.securityText]}>
+          {t('history.securityNote')}
+        </AppText>
       </View>
     </ScreenContainer>
   );
@@ -46,10 +52,10 @@ const styles = StyleSheet.create({
     paddingBottom: Spacing.section,
   },
   title: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: Colors.textPrimary,
     marginBottom: Spacing.lg,
+  },
+  centered: {
+    textAlign: 'center',
   },
   emptyContainer: {
     alignItems: 'center',
@@ -68,21 +74,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: Spacing.md,
   },
-  emptyIcon: {
-    fontSize: 30,
-  },
-  emptyTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: Colors.textPrimary,
-    marginBottom: Spacing.xs,
-  },
   emptySubtitle: {
-    fontSize: 15,
-    color: Colors.textMuted,
-    textAlign: 'center',
     paddingHorizontal: Spacing.lg,
-    lineHeight: 22,
   },
   list: {
     gap: Spacing.sm,
@@ -98,13 +91,7 @@ const styles = StyleSheet.create({
     gap: Spacing.xs,
     paddingHorizontal: Spacing.md,
   },
-  lockIcon: {
-    fontSize: 14,
-  },
   securityText: {
-    fontSize: 13,
-    color: Colors.textMuted,
-    textAlign: 'center',
+    flexShrink: 1,
   },
 });
-

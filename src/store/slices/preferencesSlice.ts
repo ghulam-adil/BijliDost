@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { SupportedLanguage, applyRtlPreference } from '@/i18n/rtl';
+import type { SupportedLanguage } from '@/i18n/rtl';
 
 export interface PreferencesState {
   language: SupportedLanguage;
@@ -23,7 +23,6 @@ export const preferencesSlice = createSlice({
   reducers: {
     setLanguage: (state, action: PayloadAction<SupportedLanguage>) => {
       state.language = action.payload;
-      applyRtlPreference(action.payload);
     },
     completeOnboarding: (state) => {
       state.hasCompletedOnboarding = true;

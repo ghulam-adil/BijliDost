@@ -28,6 +28,14 @@ describe('Preferences Redux Slice', () => {
     expect(state.language).toBe('en');
   });
 
+  it('should keep setLanguage a pure reducer (no native RTL side effect)', () => {
+    const { I18nManager } = jest.requireActual('react-native');
+    const forceRTL = jest.spyOn(I18nManager, 'forceRTL');
+    preferencesReducer(initial, setLanguage('en'));
+    expect(forceRTL).not.toHaveBeenCalled();
+    forceRTL.mockRestore();
+  });
+
   it('should handle completeOnboarding and resetOnboarding', () => {
     let state = preferencesReducer(initial, completeOnboarding());
     expect(state.hasCompletedOnboarding).toBe(true);
