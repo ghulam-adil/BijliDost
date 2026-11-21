@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.  
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.6.0-m2] — 2026-11-20
+
+### Added
+- **Milestone 2: Encrypted Local Storage, Bill History & Preferences**:
+  - `expo-sqlite` (`useSQLCipher: true`), `expo-secure-store`, `expo-crypto`, `@react-native-async-storage/async-storage` (installed via `npx expo install`).
+  - `src/services/storage/`: fail-closed `openEncryptedDatabase` (cipher check, raw 256-bit hex key, access proof before the key is persisted), `databaseKeyManager`, append-only `migrations`, Zod-validated `StoredBill` records, `sqliteBillRepository`, `storageService` (bootstrap / erase), and native adapters injected for Node-testable logic.
+  - Lifecycle states 1-6 from the security guidelines are covered by automated tests, including SQLCipher-unavailable fail-closed behaviour.
+  - Preferences persisted in AsyncStorage with Zod validation and store-level persistence; preferences hydrate before the first screen renders.
+  - `StorageProvider` / `StorageGate`: blocking UI for secure-storage failure and explicit recovery choices (never erases without confirmation).
+  - Bill History: month-sorted list, mark paid/unpaid, delete with confirmation, PII-free Redux summary cache, backup-limitation notice.
+  - Settings ("My Data"): Export My Bills (with unencrypted-export warning), Clear All Data (database file first, then key), debug-only sample bill for on-device verification.
+  - PII-safe logger (`redactForLog`, error class names only).
+  - Android `allowBackup: false`; key stored `WHEN_UNLOCKED_THIS_DEVICE_ONLY`.
+- Localised billing-month and due-date formatting (`src/i18n/format.ts`) with LTR-isolated numbers.
+
+### Changed
+- `expo-sqlite` resolved to `~58.0.18` by `expo install` (docs previously said `~58.0.17`).
+- `setLanguage` no longer performs native RTL side effects.
+
 ## [0.5.0-m1] — 2026-11-16
 
 ### Added

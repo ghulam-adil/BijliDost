@@ -56,7 +56,20 @@
     "title": "Saved Bills",
     "emptyTitle": "No Bills Found",
     "emptyDesc": "Your scanned electricity bills will be securely listed here.",
-    "securityNote": "All bill records are stored on your device with local SQLCipher encryption."
+    "securityNote": "All bill records are stored on your device with local SQLCipher encryption.",
+    "backupNote": "All records are stored on this device. Uninstalling the app will clear saved bill history.",
+    "manageData": "Manage My Data",
+    "due": "Due date",
+    "units": "Units",
+    "payable": "Payable",
+    "paid": "Paid",
+    "unpaid": "Unpaid",
+    "markPaid": "Mark as Paid",
+    "markUnpaid": "Mark as Unpaid",
+    "deleteBill": "Delete",
+    "deleteConfirmTitle": "Delete this bill?",
+    "deleteConfirmBody": "This bill will be permanently removed from this phone.",
+    "unsupported": "Saving bills is not available on this platform."
   },
   "complaints": {
     "title": "Complaints & Official Contacts",
@@ -69,6 +82,55 @@
     "checklistItem2": "Photo of your current physical meter reading",
     "checklistItem3": "Copy of the disputed bill",
     "independentNotice": "Provided for consumer reference only. We do not submit complaints on your behalf."
+  },
+  "storage": {
+    "loading": "Opening secure storage...",
+    "fatalTitle": "Secure storage unavailable",
+    "fatalBody": "This version of the app cannot protect your bill data with encryption, so saving bills is turned off. Please install the latest version of the app.",
+    "recoveryOrphanedTitle": "Earlier saved bills found",
+    "recoveryOrphanedBody": "Saved bills from an earlier install are on this phone, but their protection key was removed when the app was uninstalled. They cannot be opened. You can erase them and start fresh.",
+    "recoveryRejectedTitle": "Saved bills cannot be opened",
+    "recoveryRejectedBody": "The saved bills on this phone could not be unlocked. Nothing has been deleted. You can try again, or erase them and start fresh.",
+    "tryAgain": "Try Again",
+    "eraseAndStartFresh": "Erase and Start Fresh",
+    "eraseConfirmTitle": "Erase saved bills?",
+    "eraseConfirmBody": "All saved bills on this phone will be permanently deleted. This cannot be undone.",
+    "eraseCta": "Erase",
+    "eraseFailed": "Could not erase saved data. Please try again."
+  },
+  "settings": {
+    "title": "My Data",
+    "statusReady": "Secure storage: encrypted on this phone",
+    "statusUnsupported": "Saving bills is not available on this platform",
+    "exportTitle": "Export My Bills",
+    "exportDesc": "Save a copy of your bills as a JSON file or share it.",
+    "exportWarningTitle": "Export contains personal information",
+    "exportWarningBody": "Notice: The exported file contains unencrypted personal information (including account number, amounts, and dates). Once saved outside Bijli Dost or shared via messaging apps, it is no longer protected by the app's encryption.",
+    "exportCta": "Export Bills",
+    "exportEmpty": "There are no saved bills to export.",
+    "clearTitle": "Clear All Data",
+    "clearDesc": "Delete every saved bill and the encryption key from this phone.",
+    "clearConfirmTitle": "Delete all saved data?",
+    "clearConfirmBody": "Every saved bill on this phone will be permanently deleted. This cannot be undone.",
+    "clearCta": "Clear All Data",
+    "clearDone": "All saved data was deleted.",
+    "devSection": "Developer (debug builds only)",
+    "devAddSample": "Add sample bill",
+    "devSampleNote": "Adds a clearly fake bill to test encrypted saving. Not shown in release builds."
+  },
+  "months": {
+    "m01": "January",
+    "m02": "February",
+    "m03": "March",
+    "m04": "April",
+    "m05": "May",
+    "m06": "June",
+    "m07": "July",
+    "m08": "August",
+    "m09": "September",
+    "m10": "October",
+    "m11": "November",
+    "m12": "December"
   }
 }
 

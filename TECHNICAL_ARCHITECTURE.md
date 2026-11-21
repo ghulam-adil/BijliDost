@@ -36,7 +36,7 @@
 BijliDost/
 ├── .env.example                         # Build-time environment config template
 ├── .gitignore                           # Ignores .env*, node_modules, android/, ios/, certs
-├── app.config.ts                        # Dynamic Expo config (plugins: expo-sqlite with SQLCipher)
+├── app.json                             # Static Expo config (plugins: expo-sqlite useSQLCipher, expo-secure-store)
 ├── package.json                         # Verified against Expo SDK 58
 ├── tsconfig.json                        # strict: true, path aliases (@/* -> src/*)
 ├── AGENTS.md                            # AI agent & engineering guidelines
@@ -145,7 +145,7 @@ Starting with **Expo SDK 55**, Expo synchronized major version numbering of core
 | **State Management** | `@reduxjs/toolkit`, `react-redux` | `^2.5.x`, `^9.2.x` | Predictable local state, zero network overhead. |
 | **Validation & Schemas** | `zod` | `^3.24.x` | Strict boundary validation for tariff configs, forms, and OCR data. |
 | **Form Management** | `react-hook-form`, `@hookform/resolvers` | `^7.54.x`, `^3.10.x` | Uncontrolled inputs for low-end Android performance. |
-| **Encrypted Local Database** | `expo-sqlite` (with SQLCipher) | `~58.0.17` | Official SDK 58 release (`expo.dev/versions/latest/sdk/sqlite/`). |
+| **Encrypted Local Database** | `expo-sqlite` (with SQLCipher) | `~58.0.18` | Official SDK 58 release (`expo.dev/versions/latest/sdk/sqlite/`), resolved by `npx expo install`. |
 | **Secure Key Storage** | `expo-secure-store` | SDK 58 aligned | **Reserved strictly for the 256-bit database encryption key.** Never for full bills. |
 | **Non-Sensitive Preferences** | `@react-native-async-storage/async-storage` | SDK 58 aligned | Unencrypted storage for UI preferences (language, theme). |
 | **Image Capture & Cropping** | `expo-camera`, `expo-image-picker`, `expo-image-manipulator` | SDK 58 aligned | Image capture, gallery pick, 90° rotation, downscaling/compression before OCR. |
@@ -192,7 +192,8 @@ To guarantee that unencrypted database files are never created or written to dis
 │    │         Prevent any bill data from being read or written.         │
 │    │         Display blocking UI: "Secure storage unavailable".        │
 │    └── PASS: SQLCipher is confirmed active. Proceed to Step 4.         │
-│ 4. Apply Key:     db.execAsync(`PRAGMA key = '${encryptionKey}';`)     │
+│ 4. Apply Key:     db.execAsync(`PRAGMA key = "x'<64 hex>'";`)          │
+│                   (key validated as 256-bit hex; raw-key form)         │
 │ 5. Verify Access: Execute test query (e.g. read schema or test table). │
 │    ├── FAIL: If key rejected or file corrupted: HALT.                  │
 │    │         Do NOT overwrite or delete database automatically.        │

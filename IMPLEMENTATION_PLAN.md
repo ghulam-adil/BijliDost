@@ -48,12 +48,12 @@
 ## Milestone 2: Encrypted Local Storage, Bill History & Preferences
 **Goal:** Reliable offline persistence for bills and user preferences using fail-closed SQLCipher encryption.
 - **Verified Package Baseline (Expo SDK 58 via `npx expo install`):**
-  - `expo-sqlite`: `~58.0.17` (with `useSQLCipher: true` config plugin)
+  - `expo-sqlite`: `~58.0.18` (with `useSQLCipher: true` config plugin)
   - `expo-secure-store`
   - `expo-crypto`
   - `@react-native-async-storage/async-storage`
 - **Tasks:**
-  1. Configure `app.config.ts` plugin `["expo-sqlite", { "useSQLCipher": true }]`.
+  1. Configure the `app.json` plugin `["expo-sqlite", { "useSQLCipher": true }]` (the project uses static `app.json`).
   2. Implement `src/services/storage/databaseKeyManager.ts`: handle SecureStore key generation, retrieval, and platform uninstall matrix (Android Keystore reset vs iOS Keychain persistence).
   3. Implement `src/services/storage/encryptedBillDatabase.ts` with mandatory fail-closed sequence:
      - Check `PRAGMA cipher_version;`. Halt immediately if unavailable; never silently fall back to unencrypted SQLite.

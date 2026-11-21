@@ -56,7 +56,20 @@
     "title": "Mehfooz Bills",
     "emptyTitle": "Koi Bill Maujood Nahi",
     "emptyDesc": "Aap ke scan kiye gaye bills yahan nazar aayenge.",
-    "securityNote": "Tamam bills aap ke phone par encrypted database mein mehfooz hain."
+    "securityNote": "Tamam bills aap ke phone par encrypted database mein mehfooz hain.",
+    "backupNote": "Tamam records isi phone par mehfooz hain. App uninstall karne se mehfooz bills khatam ho jayenge.",
+    "manageData": "Mera Data",
+    "due": "Aakhri Tareekh",
+    "units": "Units",
+    "payable": "Qabil-e-Ada Raqam",
+    "paid": "Ada Shuda",
+    "unpaid": "Ada Nahi Hua",
+    "markPaid": "Ada Shuda Nishan Lagayein",
+    "markUnpaid": "Ghair Ada Shuda Nishan Lagayein",
+    "deleteBill": "Delete Karein",
+    "deleteConfirmTitle": "Ye bill delete karein?",
+    "deleteConfirmBody": "Ye bill is phone se hamesha ke liye hata diya jayega.",
+    "unsupported": "Is platform par bill mehfooz karna dastiyab nahi."
   },
   "complaints": {
     "title": "Shikayat aur Sarkari Rabtay",
@@ -69,6 +82,55 @@
     "checklistItem2": "Apne meter ki maujooda reading ki tasweer",
     "checklistItem3": "Halia bill ki copy",
     "independentNotice": "Ye maloomat sirf sarif ki asaani ke liye hain."
+  },
+  "storage": {
+    "loading": "Mehfooz storage khul rahi hai...",
+    "fatalTitle": "Mehfooz storage dastiyab nahi",
+    "fatalBody": "App ka ye version aap ke bills ka data encryption se mehfooz nahi kar sakta, is liye bill mehfooz karna band hai. Barah-e-karam app ka taaza version install karein.",
+    "recoveryOrphanedTitle": "Purane mehfooz bills mile",
+    "recoveryOrphanedBody": "Is phone par pichli installation ke mehfooz bills maujood hain, lekin app uninstall hone par un ki hifazati key khatam ho gayi. Unhein kholna mumkin nahi. Aap unhein mita kar naye sire se shuru kar sakte hain.",
+    "recoveryRejectedTitle": "Mehfooz bills khole nahi ja sakay",
+    "recoveryRejectedBody": "Is phone par mehfooz bills khole nahi ja sakay. Kuch bhi delete nahi hua. Aap dobara koshish kar sakte hain ya unhein mita kar naye sire se shuru kar sakte hain.",
+    "tryAgain": "Dobara Koshish Karein",
+    "eraseAndStartFresh": "Mitayein aur Naya Shuru Karein",
+    "eraseConfirmTitle": "Mehfooz bills mitayein?",
+    "eraseConfirmBody": "Is phone par tamam mehfooz bills hamesha ke liye delete ho jayenge. Isay wapis nahi kiya ja sakta.",
+    "eraseCta": "Mitayein",
+    "eraseFailed": "Mehfooz data mitaya nahi ja saka. Barah-e-karam dobara koshish karein."
+  },
+  "settings": {
+    "title": "Mera Data",
+    "statusReady": "Mehfooz storage: is phone par encrypted",
+    "statusUnsupported": "Is platform par bill mehfooz karna dastiyab nahi",
+    "exportTitle": "Mere Bills Export Karein",
+    "exportDesc": "Apne bills ki copy JSON file ki soorat mein mehfooz ya share karein.",
+    "exportWarningTitle": "Export mein zaati maloomat shamil hain",
+    "exportWarningBody": "Intibah: Export file mein bagair encryption zaati maloomat (account number, raqoom aur tareekhein) shamil hoti hain. Bijli Dost se bahar mehfooz ya messaging apps par share karne ke baad ye app ki encryption se mehfooz nahi rehti.",
+    "exportCta": "Bills Export Karein",
+    "exportEmpty": "Export karne ke liye koi mehfooz bill maujood nahi.",
+    "clearTitle": "Tamam Data Saaf Karein",
+    "clearDesc": "Is phone se tamam mehfooz bills aur encryption key delete karein.",
+    "clearConfirmTitle": "Tamam mehfooz data delete karein?",
+    "clearConfirmBody": "Is phone par tamam mehfooz bills hamesha ke liye delete ho jayenge. Isay wapis nahi kiya ja sakta.",
+    "clearCta": "Tamam Data Saaf Karein",
+    "clearDone": "Tamam mehfooz data delete kar diya gaya.",
+    "devSection": "Developer (sirf debug build)",
+    "devAddSample": "Namoona bill shamil karein",
+    "devSampleNote": "Encrypted saving jaanchne ke liye aik wazeh taur par jaali bill shamil karta hai. Release build mein nazar nahi aata."
+  },
+  "months": {
+    "m01": "Janwari",
+    "m02": "Farwari",
+    "m03": "March",
+    "m04": "April",
+    "m05": "May",
+    "m06": "June",
+    "m07": "July",
+    "m08": "August",
+    "m09": "Sitambar",
+    "m10": "October",
+    "m11": "November",
+    "m12": "December"
   }
 }
 

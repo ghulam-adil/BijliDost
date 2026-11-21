@@ -1,15 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { SupportedLanguage } from '@/i18n/rtl';
+import type { PersistedPreferences } from '@/services/storage/preferenceStorage';
 
-export interface PreferencesState {
-  language: SupportedLanguage;
-  hasCompletedOnboarding: boolean;
-  theme: 'system' | 'light';
-  ttsSpeechRate: number;
-  dueRemindersEnabled: boolean;
-}
+export type PreferencesState = PersistedPreferences;
 
-const initialState: PreferencesState = {
+export const initialPreferencesState: PreferencesState = {
   language: 'ur', // Default Urdu-first
   hasCompletedOnboarding: false,
   theme: 'system',
@@ -19,8 +14,10 @@ const initialState: PreferencesState = {
 
 export const preferencesSlice = createSlice({
   name: 'preferences',
-  initialState,
+  initialState: initialPreferencesState,
   reducers: {
+    /** Replaces state with validated persisted preferences at startup. */
+    hydratePreferences: (_state, action: PayloadAction<PreferencesState>) => action.payload,
     setLanguage: (state, action: PayloadAction<SupportedLanguage>) => {
       state.language = action.payload;
     },
@@ -43,6 +40,7 @@ export const preferencesSlice = createSlice({
 });
 
 export const {
+  hydratePreferences,
   setLanguage,
   completeOnboarding,
   resetOnboarding,

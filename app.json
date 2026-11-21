@@ -23,6 +23,7 @@
         "backgroundColor": "#0E7C5B"
       },
       "package": "pk.bijlidost.app",
+      "allowBackup": false,
       "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
@@ -41,7 +42,14 @@
             "./assets/fonts/NotoSansArabic-Regular.ttf"
           ]
         }
-      ]
+      ],
+      [
+        "expo-sqlite",
+        {
+          "useSQLCipher": true
+        }
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true

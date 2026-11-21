@@ -9,11 +9,12 @@ import { Card } from '@/components/ui/Card';
 import { Colors } from '@/theme/colors';
 import { Spacing, Radius } from '@/theme/spacing';
 import { useTranslation, useAppSelector } from '@/store/hooks';
+import { formatBillingMonth } from '@/i18n/format';
 
 export default function HomeScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
-  const recentBills = useAppSelector((state) => state.bills.items);
+  const { t, language } = useTranslation();
+  const recentBills = useAppSelector((state) => state.bills.items).slice(0, 3);
 
   return (
     <ScreenContainer scrollable={true} contentContainerStyle={styles.container}>
@@ -62,7 +63,7 @@ export default function HomeScreen() {
         <View style={styles.billsList}>
           {recentBills.map((bill) => (
             <Card key={bill.id} style={styles.billItemCard}>
-              <AppText variant="body">{bill.billingMonth}</AppText>
+              <AppText variant="body">{formatBillingMonth(language, bill.billingMonth)}</AppText>
             </Card>
           ))}
         </View>

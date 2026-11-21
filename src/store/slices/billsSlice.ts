@@ -1,17 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { BillSummary } from '@/services/storage/billRecord';
 
-export interface BillSummary {
-  id: string;
-  providerId: 'kelectric';
-  billingMonth: string;
-  dueDate: string;
-  unitsKwh: number;
-  amountWithinDueDate: number;
-  amountAfterDueDate: number;
-  isPaid: boolean;
-  status: 'verified' | 'unverified';
-}
+export type { BillSummary };
 
+/**
+ * PII-free cache of bill summaries for lists and dashboards.
+ * The full records live only in the encrypted database.
+ */
 export interface BillsState {
   items: BillSummary[];
   isLoading: boolean;
@@ -37,10 +32,10 @@ export const billsSlice = createSlice({
     removeBill: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter((b) => b.id !== action.payload);
     },
-    toggleBillPaid: (state, action: PayloadAction<string>) => {
-      const bill = state.items.find((b) => b.id === action.payload);
+    setBillPaid: (state, action: PayloadAction<{ id: string; isPaid: boolean }>) => {
+      const bill = state.items.find((b) => b.id === action.payload.id);
       if (bill) {
-        bill.isPaid = !bill.isPaid;
+        bill.isPaid = action.payload.isPaid;
       }
     },
     clearAllBillsState: (state) => {
@@ -53,9 +48,8 @@ export const {
   setBills,
   addBill,
   removeBill,
-  toggleBillPaid,
+  setBillPaid,
   clearAllBillsState,
 } = billsSlice.actions;
 
 export default billsSlice.reducer;
-

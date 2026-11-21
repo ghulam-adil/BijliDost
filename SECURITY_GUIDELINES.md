@@ -26,8 +26,9 @@ Pakistani electricity bills contain personal information, consumption history, p
   2. Query `PRAGMA cipher_version;`.
   3. Verify that SQLCipher is active and returns a valid version string.
      - **FAIL-CLOSED RULE**: If `PRAGMA cipher_version` returns null, empty, or throws, **initialization must halt immediately**. The app must throw a `FatalSecurityError` and display a blocking error screen. **Never silently fall back to unencrypted SQLite.**
-  4. Apply the database encryption key via `PRAGMA key = '${encryptionKey}';`.
-  5. Verify database access with a test query before permitting any read/write operations.
+  4. Apply the database encryption key as a raw 256-bit hex key: `PRAGMA key = "x'<64 hex chars>'";`. The key is validated against `/^[0-9a-f]{64}$/` before interpolation because `PRAGMA` does not accept bound parameters.
+  5. Verify database access by reading the schema (`SELECT count(*) FROM sqlite_master`) before permitting any read/write operations. A newly generated key is persisted to `SecureStore` **only after** this check succeeds.
+  6. Use only single-connection transactions (`withTransactionAsync`). `withExclusiveTransactionAsync` opens a separate connection that does not receive the key.
 - **Security Acceptance Criterion**: An automated unit test must simulate an environment where `PRAGMA cipher_version` returns empty, asserting that initialization immediately halts without creating or writing unencrypted records.
 
 ### 2.2. SecureStore Key Lifecycle & Platform-Specific Uninstall Matrix
@@ -37,6 +38,8 @@ Pakistani electricity bills contain personal information, consumption history, p
 - **Platform-Specific Uninstall Realities**:
   - **Android**: SecureStore entries are hardware-bound to the app UID and are **cleared upon app uninstall**.
   - **iOS**: Keychain entries are bound to the bundle ID/team ID and **may persist after app uninstall and reinstall**.
+- **Key storage hardening**: the key is stored with `WHEN_UNLOCKED_THIS_DEVICE_ONLY` and Android `allowBackup` is `false`, so neither the key nor the database is restored onto another device from a backup.
+- **How the states are detected** (no file-system probing): a missing key plus a database that cannot be read with the freshly generated key means State 4 (orphaned encrypted database); a stored key that cannot read the database means State 5. A stored value that is not a valid 256-bit hex key is treated as State 5 and is never regenerated over.
 - **Edge-Case State Handling**:
   1. **Existing DB + Available Key**: Normal operation. Verify SQLCipher, apply key, open tables.
   2. **Missing DB + Missing Key**: Fresh install. Generate 256-bit key via `expo-crypto`, store in `SecureStore`, create new encrypted DB.
